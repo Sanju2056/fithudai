@@ -8,23 +8,16 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'My React PWA',
-        short_name: 'ReactPWA',
-        description: 'My awesome React PWA',
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
+        name: 'FitHudai',
+        short_name: 'FitHudai',
+        description: 'Fitness app PWA',
+        start_url: '/',
         display: 'standalone',
+        background_color: '#ffffff',
+        theme_color: '#1d4ed8',
         icons: [
-          {
-            src: 'logo192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'logo512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          }
+          { src: 'logo192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'logo512.png', sizes: '512x512', type: 'image/png' }
         ]
       }
     })
