@@ -171,6 +171,7 @@ export default function SignUpPage() {
   const password = watch("password");
   const age = watch("age");
   const weight = watch("weight");
+  const nickname = watch("nickname");
 
   const onSubmit = (data) => {
     localStorage.setItem("userData", JSON.stringify(data));
@@ -180,7 +181,7 @@ export default function SignUpPage() {
     navigate("/login");
   };
 
-  const isFormComplete = email && password && age && weight;
+  const isFormComplete = email && password && age && weight && nickname;
 
   return (
     <div className="h-screen w-screen flex items-center justify-center md:px-10 font-sans">
@@ -235,7 +236,17 @@ export default function SignUpPage() {
                 {showPassword ? "🙈" : "👁"}
               </button>
             </div>
-
+            <div className="mb-4">
+              <label className="text-xs font-medium text-gray-700 mb-2 block">
+                Nick Name
+              </label>
+              <input
+                {...register("nickname")}
+                type="text"
+                placeholder="Enter your nickname"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300"
+              />
+            </div>
             {/* Age */}
             <div className="mb-4">
               <label className="text-xs font-medium text-gray-700 mb-2 block">
@@ -279,7 +290,11 @@ export default function SignUpPage() {
               type="submit"
               disabled={!isFormComplete}
               className={`w-full py-3 mb-4 flex items-center justify-center text-white rounded-lg font-semibold active:scale-95 transition
-                ${isFormComplete ? "bg-[#0f0f0f] hover:bg-[#1f1f1f]" : "bg-gray-400 cursor-not-allowed"}`}
+                ${
+                  isFormComplete
+                    ? "bg-[#0f0f0f] hover:bg-[#1f1f1f]"
+                    : "bg-gray-400 cursor-not-allowed"
+                }`}
             >
               Sign up
             </button>

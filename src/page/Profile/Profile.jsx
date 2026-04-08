@@ -1,21 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfilePic from "../../assets/sanju.jpg";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router";
+import Avatar from "../Avatar";
 
 const StatCard = ({ label, value, icon, change, changeColor }) => (
-  <div className=" rounded-2xl px-3 py-2 border border-gray-300 flex flex-col items-start">
-    <div className="flex items-center gap-2">
-      <p className="text-xs text-gray-900">{label}</p>
+  <div>
+    <div className=" rounded-2xl px-3 py-2 border border-gray-300 flex flex-col items-start">
+      <div className="flex items-center gap-2">
+        <p className="text-xs text-gray-900">{label}</p>
+      </div>
+      <p className="text-2xl font-bold text-gray-600 mt-1">{value}</p>
+      {/* {change && <p className={`text-xs ${changeColor}`}>{change}</p>} */}
     </div>
-    <p className="text-2xl font-bold text-gray-600 mt-1">{value}</p>
-    {/* {change && <p className={`text-xs ${changeColor}`}>{change}</p>} */}
   </div>
 );
 
 export default function Profile() {
+    const [initial, setInitial] = useState("");
+const [email, setEmail] = useState("");
+const [nickname, setNickname] = useState("");
+
+   useEffect(() => {
+      // Retrieve user data from localStorage
+      const userData = JSON.parse(localStorage.getItem("userData"));
+      if (userData && userData.email) {
+        setInitial(userData.nickname[0].toUpperCase());
+        setEmail(userData.email);
+        setNickname(userData.nickname);
+      }
+    }, []);
+
   const [editMode, setEditMode] = useState(false);
-const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen py-8 px-4 font-sans">
       {/* Header */}
@@ -39,15 +56,9 @@ const navigate = useNavigate();
 
       {/* Profile Info */}
       <div className="flex flex-col items-center mb-8">
-        <div className="w-24 h-24 rounded-full overflow-hidden  mb-3">
-          <img
-            src={ProfilePic}
-            alt="Sanju"
-            className="object-cover w-full h-full"
-          />
-        </div>
-        <h2 className="text-xl font-bold text-gray-800 mb-1">Sanju Gurung</h2>
-        <p className="text-gray-400 text-sm">sanju@example.com</p>
+        <Avatar />
+        <h2 className="text-xl font-bold text-gray-800 mt-2">{nickname} </h2>
+        <p className="text-gray-400 text-sm">{email}</p>
       </div>
 
       {/* Stats */}

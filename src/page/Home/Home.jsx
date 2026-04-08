@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfilePic from "../../assets/sanju.jpg";
 import { Link } from "react-router";
 import QuoteBox from "../QuoteBox";
-const Avatar = () => (
-  <Link to='/profile' className="size-16 rounded-full overflow-hidden   flex items-center justify-center ">
-    <img src={ProfilePic} />
-  </Link>
-);
+import { LoginImage } from "../../assets";
+import Capture from "../Capture/Capture";
+import Avatar from "../Avatar";
+
 
 const StatCard = ({ icon, label, value, change, changeColor }) => (
   <div className="bg-gray-50 rounded-2xl p-4 shadow-sm border  flex flex-col ">
@@ -90,6 +89,15 @@ const InsightCard = ({ emoji, title, body, accent }) => (
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
+  const [userName, setUserName] = useState("");
+
+ useEffect(() => {
+    // Retrieve user data from localStorage
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData && userData.nickname) {
+      setUserName(userData.nickname); // First letter of email
+    }
+  }, []);
 
   return (
     <div className="min-h-screen  flex justify-center items-start px-2  py-8">
@@ -104,7 +112,7 @@ export default function Home() {
                 FitHudai
               </span>
               <span className="text-gray-800 font-semibold text-base ml-1">
-                Hello, Sanju
+                Hello, {userName}
               </span>
             </div>
             <p className="text-xs text-gray-400 mt-0.5 leading-snug">
@@ -118,6 +126,8 @@ export default function Home() {
         {/* Scrollable content */}
         <div className="overflow-y-auto max-h-[680px] px-4 space-y-5">
           {/* Stats grid */}
+          <Capture/>
+      
          
           <div className="grid grid-cols-2 gap-2">
             <StatCard

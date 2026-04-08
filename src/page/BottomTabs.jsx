@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 
 const BottomTabs = () => {
   const baseStyle =
-    "flex flex-col items-center text-xs flex-1 py-2";
+    "flex flex-col items-center text-xs flex-1 py-4";
 
-  const activeStyle = "text-green-500";
+  const activeStyle = "text-gray-800";
   const inactiveStyle = "text-gray-400";
 
   return (
@@ -17,8 +17,11 @@ const BottomTabs = () => {
           `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
         }
       >
-        <Home size={20} />
+        <Home size={24} />
+        <p className="text-sm mt-1 font-semibold">
+
         Home
+        </p>
       </NavLink>
 
       <NavLink
@@ -27,8 +30,8 @@ const BottomTabs = () => {
           `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
         }
       >
-        <BarChart2 size={20} />
-        Activity
+        <BarChart2 size={24} />
+        <p className="text-sm mt-1 font-semibold">Activity</p>
       </NavLink>
 
       <NavLink
@@ -37,8 +40,8 @@ const BottomTabs = () => {
           `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
         }
       >
-        <Utensils size={20} />
-        Meals
+        <Utensils size={24} />
+        <p className="text-sm mt-1 font-semibold">Meals</p>
       </NavLink>
 
       <NavLink
@@ -47,8 +50,8 @@ const BottomTabs = () => {
           `${baseStyle} ${isActive ? activeStyle : inactiveStyle}`
         }
       >
-        <User size={20} />
-        Profile
+        <User size={24} />
+        <p className="text-sm mt-1 font-semibold">Profile</p>
       </NavLink>
     </div>
   );

@@ -7,6 +7,7 @@ import Profile from "./page/Profile/Profile";
 import AuthLayout from "../AuthLayout";
 import AppLayout from "../AppLayout";
 import ProtectedRoute from "../ProtectedRoute";
+import WorkoutTable from "./page/WorkoutTable/WorkoutTable";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         >
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/activity" element={<WorkoutTable />} />
         </Route>
       </Routes>
     </BrowserRouter>
