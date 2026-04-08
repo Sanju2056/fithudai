@@ -1,82 +1,106 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
 export default function SignUpPage() {
+  const { register, handleSubmit } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
 
-  return (
-    <div className="h-screen flex items-center justify-center  md:px-10 font-sans">
-      <div className="flex flex-col  md:flex-row  items-center  bg-[#f3f3f3] rounded-lg overflow-hidden border p-6 md:p-0  ">
-        <div className="flex-1 w-[320px] md:p-8  flex flex-col ">
-          <div className="flex items-center gap-2 mb-6">
-            <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
-              <svg viewBox="0 0 20 20" className="w-3.5 h-3.5 fill-white">
-                <path d="M10 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 4c-3 0-6 1.5-6 4v1h2v-1c0-1.1 1.8-2 4-2s4 .9 4 2v1h2v-1c0-2.5-3-4-6-4zm-4 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-              </svg>
-            </div>
-            <span className="font-semibold text-gray-900 text-sm">
-              FitHudai
-            </span>
-          </div>
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
-          <h1 className="text-2xl font-bold text-gray-900 mb-1">
+  return (
+    <div className="h-screen w-screen flex items-center justify-center  md:px-10 font-sans">
+      <div className="flex flex-col w-full   items-center  overflow-hidden  p-6 md:p-0  ">
+        <div className="flex items-center gap-2 mb-6">
+          <div className="size-8 bg-black rounded-full flex items-center justify-center">
+            <svg viewBox="0 0 20 20" className="size-6 fill-white">
+              <path d="M10 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 4c-3 0-6 1.5-6 4v1h2v-1c0-1.1 1.8-2 4-2s4 .9 4 2v1h2v-1c0-2.5-3-4-6-4zm-4 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm4 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+            </svg>
+          </div>
+          <span className="font-semibold text-gray-900 text-2xl">FitHudai</span>
+        </div>
+        <div className="flex-1 w-full md:p-8  flex flex-col ">
+          <h1 className="text-2xl font-bold text-gray-900 mb-1 text-center">
             Create your account
           </h1>
-          <p className="text-xs text-gray-500 mb-6">
+          <p className="text-sm text-gray-500 mb-6 text-center">
             Hello guys ! Enter your details to create your account.
           </p>
-
-          <div className="mb-4">
-            <label className="text-xs font-medium text-gray-700 mb-2 block">
-              Email
-            </label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 "
-            />
-          </div>
-
-          <div className="mb-4 relative">
-            <label className="text-xs font-medium text-gray-700 mb-2 block">
-              Password
-            </label>
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Enter your Password"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 pr-10"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 bottom-0 transform -translate-y-1/2 text-gray-400 text-sm"
-            >
-              {showPassword ? "🙈" : "👁"}
-            </button>
-          </div>
-
-          <div className="flex justify-between items-center mb-5 text-xs">
-            <label className="flex items-center gap-2 text-gray-600 cursor-pointer">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-4">
+              <label className="text-xs font-medium text-gray-700 mb-2 block">
+                Email
+              </label>
               <input
-                type="checkbox"
-                checked={remember}
-                onChange={() => setRemember(!remember)}
-                className="w-3 h-3 accent-purple-600"
+                type="email"
+                 {...register("email")}
+                placeholder="Enter your email"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 "
               />
-              Remember login
-            </label>
-            <a className="text-purple-600 font-medium hover:underline">
-              Forgot Password?
-            </a>
-          </div>
+            </div>
 
-          <Link
-            to="/home"
-            className="w-full py-3 mb-4 bg-purple-600 flex items-center justify-center  text-white rounded-lg font-semibold text-sm hover:bg-purple-700 active:scale-95 transition"
-          >
-            Sign up
-          </Link>
+            <div className="mb-4 relative">
+              <label className="text-xs font-medium text-gray-700 mb-2 block">
+                Password
+              </label>
+              <input
+                {...register("password")}
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your Password"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 bottom-0 transform -translate-y-1/2 text-gray-400 text-sm"
+              >
+                {showPassword ? "🙈" : "👁"}
+              </button>
+            </div>
+            <div className="mb-4">
+              <label className="text-xs font-medium text-gray-700 mb-2 block">
+                Age
+              </label>
+              <input
+                {...register("age")}
+                type="number"
+                placeholder="Enter your age"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 "
+              />
+            </div>
+            <div className="mb-4">
+              <label className="text-xs font-medium text-gray-700 mb-2 block">
+                Weight
+              </label>
+              <input
+                {...register("weight")}
+                type="number"
+                placeholder="Enter your weight"
+                className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-300 "
+              />
+            </div>
+            <div className="flex justify-between items-center mb-5 text-xs">
+              <label className="flex items-center gap-2 text-gray-600 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={remember}
+                  onChange={() => setRemember(!remember)}
+                  className="w-3 h-3 "
+                />
+                Remember login
+              </label>
+              <a className=" font-medium hover:underline">Forgot Password?</a>
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 mb-4 bg-[#0f0f0f] flex items-center justify-center  text-white rounded-lg font-semibold text-sm hover:bg-[#1f1f1f] active:scale-95 transition"
+            >
+              <Link to="/home">Sign up</Link>
+            </button>
+          </form>
 
           <div className="flex items-center gap-2 mb-4">
             <div className="flex-1 h-px bg-gray-300" />
@@ -119,7 +143,7 @@ export default function SignUpPage() {
             Already have an account?{" "}
             <Link
               to="/"
-              className="text-purple-600 font-semibold hover:underline cursor-pointer"
+              className="text-gray-900 font-semibold hover:underline cursor-pointer"
             >
               Login
             </Link>
