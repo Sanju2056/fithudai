@@ -1,10 +1,11 @@
 import { useState } from "react";
 import ProfilePic from "../../assets/sanju.jpg";
 import { Link } from "react-router";
+import QuoteBox from "../QuoteBox";
 const Avatar = () => (
-  <div className="size-16 rounded-full overflow-hidden   flex items-center justify-center ">
+  <Link to='/profile' className="size-16 rounded-full overflow-hidden   flex items-center justify-center ">
     <img src={ProfilePic} />
-  </div>
+  </Link>
 );
 
 const StatCard = ({ icon, label, value, change, changeColor }) => (
@@ -117,6 +118,7 @@ export default function Home() {
         {/* Scrollable content */}
         <div className="overflow-y-auto max-h-[680px] px-4 space-y-5">
           {/* Stats grid */}
+         
           <div className="grid grid-cols-2 gap-2">
             <StatCard
               icon="👟"
@@ -142,7 +144,7 @@ export default function Home() {
               changeColor="text-red-400"
             />
           </div>
-
+ <QuoteBox/>
           {/* Suggested Workout */}
           <div>
             <div className="flex items-center justify-between mb-3">

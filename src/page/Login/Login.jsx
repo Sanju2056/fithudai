@@ -1,16 +1,35 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { use, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 
 export default function LoginPage() {
-  const { register, handleSubmit } = useForm();
-
+  const { register, handleSubmit ,watch} = useForm();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const email = watch("email");
+  const password = watch("password");
   const onSubmit = (data) => {
-    console.log(data);
+    if (userEmail === data.email && userPassword === data.password) {
+      localStorage.setItem("isLoggedIn", true);
+      navigate("/home");
+    } else {
+      alert("Invalid email or password.please try again");
+    }
   };
-
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (userData) {
+      setUserEmail(userData.email);
+      setUserPassword(userData.password);
+    }
+    console.log(userData);
+  }, []);
+  useEffect(() => {
+    console.log("State updated:", userEmail, userPassword);
+  }, [userEmail, userPassword]);
   return (
     <div className="h-screen flex w-full items-center justify-center py-6 md:py-20   font-sans">
       <div className="flex flex-col w-full items-center   rounded-lg overflow-hidden  p-6 md:p-0  ">
@@ -74,10 +93,12 @@ export default function LoginPage() {
               <a className=" font-medium hover:underline">Forgot Password?</a>
             </div>
             <button
-              className="w-full py-3 mb-4 flex bg-[#0f0f0f] justify-center items-center  text-white rounded-lg font-semibold text-sm  active:scale-95 transition"
+              className={`w-full py-3 mb-4 flex justify-center items-center text-white rounded-lg font-semibold text-sm active:scale-95 transition
+    ${!email || !password ? "bg-gray-400 cursor-not-allowed" : "bg-[#0f0f0f]"}`}
               type="submit"
+              disabled={!email || !password} // disables button if email or password is empty
             >
-              <Link to="/home">Login</Link>
+              Login
             </button>
           </form>
 
@@ -121,7 +142,7 @@ export default function LoginPage() {
           <p className="text-center text-sm text-gray-400 mt-5">
             New here?{" "}
             <Link
-              to="/signup"
+              to="/"
               className="text-gray-900 font-semibold hover:underline cursor-pointer"
             >
               Create account

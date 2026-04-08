@@ -1,24 +1,37 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import LoginPage from "./page/Login/Login";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpPage from "./page/SIgnup/Signup";
 import Home from "./page/Home/Home";
-import BottomTabs from "./page/BottomTabs";
 import Profile from "./page/Profile/Profile";
+import AuthLayout from "../AuthLayout";
+import AppLayout from "../AppLayout";
+import ProtectedRoute from "../ProtectedRoute";
 
-const App = () => {
+function App() {
   return (
-    <div className="">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />}  />
-          <Route path="/signup" element={<SignUpPage />}  />
-          <Route path="/home" element={<Home />}  />
-          <Route path="/profile" element={<Profile />}  />
-        </Routes>
-        <BottomTabs />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Auth routes (NO bottom bar) */}
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<SignUpPage />} />
+        </Route>
+
+        {/* App routes (WITH bottom bar) */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
